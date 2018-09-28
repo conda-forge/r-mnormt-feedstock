@@ -1,5 +1,4 @@
 {% set version = '1.5-5' %}
-
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -10,31 +9,37 @@ package:
 source:
   fn: mnormt_{{ version }}.tar.gz
   url:
-    - https://cran.r-project.org/src/contrib/mnormt_{{ version }}.tar.gz
-    - https://cran.r-project.org/src/contrib/Archive/mnormt/mnormt_{{ version }}.tar.gz
+    - {{ cran_mirror }}/src/contrib/mnormt_{{ version }}.tar.gz
+    - {{ cran_mirror }}/src/contrib/Archive/mnormt/mnormt_{{ version }}.tar.gz
   sha256: ff78d5f935278935f1814a69e5a913d93d6dd2ac1b5681ba86b30c6773ef64ac
 
 build:
-  number: 0
+  merge_build_host: True  # [win]
+  number: 1
   skip: true  # [win32]
-
   rpaths:
     - lib/R/lib/
     - lib/
 
 requirements:
   build:
+    - {{ compiler('c') }}        # [not win]
+    - {{ compiler('fortran') }}  # [not win]
+    - {{native}}toolchain        # [win]
+    - {{posix}}filesystem        # [win]
+    - {{posix}}make
+    - {{posix}}sed               # [win]
+    - {{posix}}coreutils         # [win]
+    - {{posix}}zip               # [win]
+  host:
     - r-base
-    - posix                # [win]
-    - {{native}}toolchain  # [win]
-    - gcc                  # [not win]
-
   run:
     - r-base
+    - {{native}}gcc-libs         # [win]
 
 test:
   commands:
-    - $R -e "library('mnormt')"  # [not win]
+    - $R -e "library('mnormt')"           # [not win]
     - "\"%R%\" -e \"library('mnormt')\""  # [win]
 
 about:
@@ -46,8 +51,14 @@ about:
     methods; different routines  are used in the case d=1, d=2, d>2, if d denotes the
     number of dimensions.
   license_family: GPL3
+  license_file: '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3'  # [unix]
+  license_file: '{{ environ["PREFIX"] }}\R\share\licenses\GPL-3'  # [win]
 
 extra:
   recipe-maintainers:
     - johanneskoester
     - bgruening
+    - daler
+    - jdblischak
+    - cbrueffer
+    - dbast
