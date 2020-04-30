@@ -1,4 +1,4 @@
-{% set version = '1.5-6' %}
+{% set version = "1.5-7" %}
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -10,10 +10,10 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/mnormt_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/mnormt/mnormt_{{ version }}.tar.gz
-  sha256: 2951fcc9711d577d7d5577d313875c4ed9f7a7a06df8c3b62fa27c231f021e4d
+  sha256: cf3d77d09fe904f27181778e6eb9cde9c9c1a9ec3c89e63617ea7301e0a61bf8
 
 build:
-  merge_build_host: True  # [win]
+  merge_build_host: true  # [win]
   number: 0
   rpaths:
     - lib/R/lib/
@@ -25,16 +25,16 @@ requirements:
     - {{ compiler('m2w64_c') }}        # [win]
     - {{ compiler('fortran') }}        # [not win]
     - {{ compiler('m2w64_fortran') }}  # [win]
-    - {{posix}}filesystem        # [win]
-    - {{posix}}make
-    - {{posix}}sed               # [win]
-    - {{posix}}coreutils         # [win]
-    - {{posix}}zip               # [win]
+    - {{ posix }}filesystem        # [win]
+    - {{ posix }}make
+    - {{ posix }}sed               # [win]
+    - {{ posix }}coreutils         # [win]
+    - {{ posix }}zip               # [win]
   host:
     - r-base
   run:
     - r-base
-    - {{native}}gcc-libs         # [win]
+    - {{ native }}gcc-libs         # [win]
 
 test:
   commands:
@@ -44,15 +44,12 @@ test:
 about:
   home: http://azzalini.stat.unipd.it/SW/Pkg-mnormt
   license: GPL-2 | GPL-3
-  summary: Functions are provided for computing the density and the distribution function of
-    multivariate normal and "t" random variables, and for generating random vectors
-    sampled from these distributions. Probabilities are computed via non-Monte Carlo
-    methods; different routines are used in the case d=1, d=2, d>2, if d denotes the
-    number of dimensions.
+  summary: Functions are provided for computing the density and the distribution function of multivariate normal and "t" random variables, and for generating random vectors sampled from these distributions. Probabilities are computed via non-Monte Carlo methods; different routines are used in the case d=1, d=2, d>2, if d
+    denotes the number of dimensions.
   license_family: GPL3
   license_file:
-    - '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-2'
-    - '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3'
+    - {{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-2
+    - {{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3
 
 extra:
   recipe-maintainers:
