@@ -32,9 +32,11 @@ requirements:
     - {{ posix }}zip               # [win]
   host:
     - r-base
+    - r-tmvnsim
   run:
     - r-base
     - {{ native }}gcc-libs         # [win]
+    - r-tmvnsim
 
 test:
   commands:
@@ -43,7 +45,7 @@ test:
 
 about:
   home: http://azzalini.stat.unipd.it/SW/Pkg-mnormt
-  license: GPL-2 | GPL-3
+  license: GPL-2.0-or-later
   summary: Functions are provided for computing the density and the distribution function of multivariate normal and "t" random variables, and for generating random vectors sampled from these distributions. Probabilities are computed via non-Monte Carlo methods; different routines are used in the case d=1, d=2, d>2, if d
     denotes the number of dimensions.
   license_family: GPL3
