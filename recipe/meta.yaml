@@ -33,9 +33,11 @@ requirements:
     - {{ posix }}zip               # [win]
   host:
     - r-base
+    - r-tmvnsim
   run:
     - r-base
     - {{ native }}gcc-libs         # [win]
+    - r-tmvnsim
 
 test:
   commands:
