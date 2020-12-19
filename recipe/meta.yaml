@@ -1,4 +1,4 @@
-{% set version = "1.5-7" %}
+{% set version = "2.0.2" %}
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -10,11 +10,11 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/mnormt_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/mnormt/mnormt_{{ version }}.tar.gz
-  sha256: cf3d77d09fe904f27181778e6eb9cde9c9c1a9ec3c89e63617ea7301e0a61bf8
+  sha256: 5c6aa036d3f1035ffe8f9a8e95bb908b191b126b016591cf893c50472851f334
 
 build:
   merge_build_host: true  # [win]
-  number: 2
+  number: 0
   rpaths:
     - lib/R/lib/
     - lib/
@@ -32,9 +32,11 @@ requirements:
     - {{ posix }}zip               # [win]
   host:
     - r-base
+    - r-tmvnsim >=1.0_2
   run:
     - r-base
     - {{ native }}gcc-libs         # [win]
+    - r-tmvnsim >=1.0_2
 
 test:
   commands:
@@ -43,7 +45,7 @@ test:
 
 about:
   home: http://azzalini.stat.unipd.it/SW/Pkg-mnormt
-  license: GPL-2 | GPL-3
+  license: GPL-2.0-or-later
   summary: Functions are provided for computing the density and the distribution function of multivariate normal and "t" random variables, and for generating random vectors sampled from these distributions. Probabilities are computed via non-Monte Carlo methods; different routines are used in the case d=1, d=2, d>2, if d
     denotes the number of dimensions.
   license_family: GPL3
