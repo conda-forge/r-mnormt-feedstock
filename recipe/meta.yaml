@@ -1,4 +1,4 @@
-{% set version = "2.1.0" %}
+{% set version = "2.1.1" %}
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -10,11 +10,11 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/mnormt_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/mnormt/mnormt_{{ version }}.tar.gz
-  sha256: 2d498505e32d8aa9fa54a1ab328c35ae3a85e0b20a0cf0d519a4df84e2b307b8
+  sha256: 95fca70378af0afd5a388982ba5528f5b27e02157eeb9940a0a9762d11511308
 
 build:
   merge_build_host: true  # [win]
-  number: 1
+  number: 0
   rpaths:
     - lib/R/lib/
     - lib/
