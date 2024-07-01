@@ -1,6 +1,5 @@
 {% set version = "2.1.1" %}
 {% set posix = 'm2-' if win else '' %}
-{% set native = 'm2w64-' if win else '' %}
 
 package:
   name: r-mnormt
@@ -13,8 +12,7 @@ source:
   sha256: 95fca70378af0afd5a388982ba5528f5b27e02157eeb9940a0a9762d11511308
 
 build:
-  merge_build_host: true  # [win]
-  number: 1
+  number: 2
   rpaths:
     - lib/R/lib/
     - lib/
@@ -24,7 +22,9 @@ requirements:
     - cross-r-base {{ r_base }}  # [build_platform != target_platform]
     - r-tmvnsim                  # [build_platform != target_platform]
     - {{ compiler('c') }}              # [not win]
+    - {{ stdlib("c") }}                # [not win]
     - {{ compiler('m2w64_c') }}        # [win]
+    - {{ stdlib("m2w64_c") }}          # [win]
     - {{ compiler('fortran') }}        # [not win]
     - {{ compiler('m2w64_fortran') }}  # [win]
     - {{ posix }}filesystem        # [win]
@@ -37,7 +37,6 @@ requirements:
     - r-tmvnsim >=1.0_2
   run:
     - r-base
-    - {{ native }}gcc-libs         # [win]
     - r-tmvnsim >=1.0_2
 
 test:
